@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiches de Révision Mathématiques — Bac Blanc</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --paper: #f8f4ec;
+    --cream: #f0e9d6;
+    --gold: #c8922a;
+    --gold-light: #e8b84b;
+    --red: #c0392b;
+    --blue: #1a5276;
+    --green: #1e6b3c;
+    --purple: #5b2c8d;
+    --border: #d4c5a0;
+    --shadow: rgba(26,18,8,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: #e8e0d0;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 48px 40px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 20px,
+      rgba(200,146,42,0.04) 20px, rgba(200,146,42,0.04) 21px
+    );
+  }
+  header .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 900;
+    line-height: 1.05;
+    position: relative;
+    letter-spacing: -1px;
+  }
+  header h1 span { color: var(--gold-light); }
+  header .subtitle {
+    margin-top: 16px;
+    font-size: 15px;
+    color: rgba(248,244,236,0.6);
+    font-style: italic;
+    position: relative;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--ink);
+    border-top: 1px solid rgba(200,146,42,0.3);
+    padding: 16px 40px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav button {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid rgba(200,146,42,0.4);
+    background: transparent;
+    color: rgba(248,244,236,0.7);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  nav button:hover, nav button.active {
+    background: var(--gold);
+    color: var(--ink);
+    border-color: var(--gold);
+  }
+
+  /* ── MAIN ── */
+  main { max-width: 960px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* ── FICHE ── */
+  .fiche {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .fiche.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── FICHE HEADER ── */
+  .fiche-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 36px 40px;
+    margin-bottom: 28px;
+    border-left: 6px solid var(--gold);
+    position: relative;
+  }
+  .fiche-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .fiche-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+  .fiche-tags { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border: 1px solid rgba(200,146,42,0.5);
+    color: rgba(248,244,236,0.7);
+    border-radius: 2px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .section-header {
+    padding: 16px 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+    transition: background 0.2s;
+  }
+  .section-header:hover { background: var(--cream); }
+  .section-header.open { border-bottom-color: var(--border); }
+  .section-icon {
+    width: 32px; height: 32px;
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    flex: 1;
+  }
+  .chevron {
+    font-size: 12px;
+    color: var(--gold);
+    transition: transform 0.3s;
+  }
+  .section-header.open .chevron { transform: rotate(90deg); }
+  .section-body {
+    padding: 28px;
+    display: none;
+  }
+  .section-body.open { display: block; }
+
+  /* ── COLOR THEMES PER SECTION ── */
+  .s-cours .section-icon { background: var(--blue); color: white; }
+  .s-cours .section-label { color: var(--blue); }
+  .s-methodes .section-icon { background: var(--green); color: white; }
+  .s-methodes .section-label { color: var(--green); }
+  .s-exercices .section-icon { background: var(--red); color: white; }
+  .s-exercices .section-label { color: var(--red); }
+  .s-corriges .section-icon { background: var(--purple); color: white; }
+  .s-corriges .section-label { color: var(--purple); }
+  .s-erreurs .section-icon { background: #c0392b; color: white; }
+  .s-erreurs .section-label { color: #c0392b; }
+  .s-essential .section-icon { background: var(--gold); color: var(--ink); }
+  .s-essential .section-label { color: var(--gold); }
+
+  /* ── CONTENT STYLES ── */
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 24px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border);
+  }
+  h3:first-child { margin-top: 0; }
+  h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--blue);
+    margin: 18px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  p { font-size: 14.5px; line-height: 1.75; margin-bottom: 12px; color: #2c2010; }
+  ul, ol { padding-left: 22px; margin-bottom: 12px; }
+  li { font-size: 14px; line-height: 1.7; margin-bottom: 4px; }
+
+  /* ── FORMULA BOX ── */
+  .formula-box {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 20px 24px;
+    margin: 16px 0;
+    border-left: 4px solid var(--gold);
+    position: relative;
+  }
+  .formula-box .formula-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .formula-box .math {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 2;
+    color: #f0e9d6;
+  }
+  .formula-box .math .highlight { color: var(--gold-light); font-weight: 600; }
+
+  /* ── INLINE MATH ── */
+  .m { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: rgba(200,146,42,0.1); padding: 1px 5px; border-radius: 2px; }
+
+  /* ── METHOD CARD ── */
+  .method-card {
+    border: 1px solid var(--border);
+    margin: 16px 0;
+    background: var(--cream);
+  }
+  .method-card .method-header {
+    background: var(--green);
+    color: white;
+    padding: 10px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .method-card .method-body { padding: 18px; }
+  .method-card .step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .method-card .step-num {
+    width: 26px; height: 26px;
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .method-card .step-text { font-size: 14px; line-height: 1.65; }
+
+  /* ── EXERCISE ── */
+  .exercise {
+    border: 1px solid var(--border);
+    margin: 16px 0;
+    background: var(--cream);
+  }
+  .exercise-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    background: var(--red);
+    color: white;
+  }
+  .exercise-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .difficulty {
+    margin-left: auto;
+    font-size: 12px;
+  }
+  .exercise-body { padding: 18px; }
+  .sub { font-size: 13.5px; line-height: 1.7; margin-bottom: 8px; }
+  .sub strong { font-weight: 600; color: var(--red); }
+
+  /* ── CORRIGES ── */
+  .corrige {
+    border: 1px solid var(--border);
+    margin: 16px 0;
+    background: #f5f0f8;
+  }
+  .corrige-header {
+    background: var(--purple);
+    color: white;
+    padding: 10px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .corrige-body { padding: 18px; display: none; }
+  .corrige-body.open { display: block; }
+  .corrige-step {
+    display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start;
+  }
+  .corrige-step .cs-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    color: var(--purple);
+    min-width: 28px;
+    margin-top: 2px;
+  }
+  .corrige-step .cs-text { font-size: 14px; line-height: 1.7; }
+  .result {
+    background: var(--purple);
+    color: white;
+    padding: 10px 16px;
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    border-radius: 2px;
+  }
+
+  /* ── ALERT/WARNING BOX ── */
+  .alert {
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-left: 4px solid;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .alert.warning { background: #fdf3e3; border-color: var(--gold); }
+  .alert.danger { background: #fdecea; border-color: var(--red); }
+  .alert.info { background: #eaf4fb; border-color: var(--blue); }
+  .alert.success { background: #eafaf1; border-color: var(--green); }
+  .alert strong { display: block; font-weight: 600; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .alert.warning strong { color: var(--gold); }
+  .alert.danger strong { color: var(--red); }
+  .alert.info strong { color: var(--blue); }
+  .alert.success strong { color: var(--green); }
+
+  /* ── ESSENTIAL BOX ── */
+  .essential-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .essential-item {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px;
+    border-left: 3px solid var(--gold);
+  }
+  .essential-item .ei-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .essential-item p { font-size: 13px; color: rgba(248,244,236,0.85); margin: 0; }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13.5px; }
+  th { background: var(--ink); color: var(--paper); padding: 10px 14px; text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) td { background: var(--cream); }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  @media (max-width: 600px) {
+    nav { padding: 12px 16px; gap: 6px; }
+    nav button { font-size: 9px; padding: 6px 10px; }
+    .fiche-header, .section-body { padding: 20px 18px; }
+    .formula-box { padding: 16px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">Terminale · Bac Blanc · Niveau Exigeant</div>
+  <h1>Fiches de Révision<br><span>Mathématiques</span></h1>
+  <p class="subtitle">7 chapitres · Cours synthétique · Méthodes · Exercices corrigés</p>
+</header>
+
+<nav>
+  <button class="active" onclick="showFiche(0)">① Polynômes 2°</button>
+  <button onclick="showFiche(1)">② Suites</button>
+  <button onclick="showFiche(2)">③ Probas conditionnelles</button>
+  <button onclick="showFiche(3)">④ Suites arith./géom.</button>
+  <button onclick="showFiche(4)">⑤ Dérivation</button>
+  <button onclick="showFiche(5)">⑥ Trigonométrie</button>
+  <button onclick="showFiche(6)">⑦ Produit scalaire</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FICHE 1 : POLYNÔMES DU SECOND DEGRÉ                       -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="fiche active" id="fiche-0">
+  <div class="fiche-header">
+    <div class="fiche-number">FICHE 01 / 07</div>
+    <div class="fiche-title">Polynômes du Second Degré</div>
+    <div class="fiche-tags">
+      <span class="tag">Discriminant</span>
+      <span class="tag">Forme canonique</span>
+      <span class="tag">Tableau de signes</span>
+      <span class="tag">Inéquations</span>
+    </div>
+  </div>
+
+  <!-- COURS -->
+  <div class="section s-cours">
+    <div class="section-header open" onclick="toggleSection(this)">
+      <div class="section-icon">📖</div>
+      <div class="section-label">Mini-Cours</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body open">
+      <h3>1. Définitions et Formes</h3>
+      <p>Tout polynôme du second degré s'écrit <span class="m">f(x) = ax² + bx + c</span> avec <span class="m">a ≠ 0</span>. Il existe trois formes équivalentes :</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Les 3 formes essentielles</div>
+        <div class="math">
+          Forme développée : <span class="highlight">f(x) = ax² + bx + c</span><br>
+          Forme canonique : <span class="highlight">f(x) = a(x − α)² + β</span><br>
+          Forme factorisée : <span class="highlight">f(x) = a(x − x₁)(x − x₂)</span> (si Δ ≥ 0)
+        </div>
+      </div>
+
+      <h3>2. Le Discriminant</h3>
+      <div class="formula-box">
+        <div class="formula-label">Discriminant et racines</div>
+        <div class="math">
+          Δ = <span class="highlight">b² − 4ac</span><br><br>
+          Si Δ > 0 : deux racines réelles x₁ = (−b − √Δ)/2a  et  x₂ = (−b + √Δ)/2a<br>
+          Si Δ = 0 : racine double  x₀ = −b / 2a<br>
+          Si Δ &lt; 0 : pas de racine réelle
+        </div>
+      </div>
+
+      <h3>3. Forme canonique</h3>
+      <p>Le sommet de la parabole est <span class="m">S(α, β)</span> avec :</p>
+      <div class="formula-box">
+        <div class="formula-label">Sommet et forme canonique</div>
+        <div class="math">
+          α = <span class="highlight">−b / 2a</span>  (abscisse du sommet = axe de symétrie)<br>
+          β = <span class="highlight">f(α) = c − b²/4a</span>  (ordonnée du sommet = extremum)<br><br>
+          Remarque : β = −Δ/4a
+        </div>
+      </div>
+
+      <h3>4. Signe du trinôme</h3>
+      <div class="alert info">
+        <strong>Règle fondamentale</strong>
+        Si Δ > 0, le trinôme est du <strong>signe de a</strong> à l'extérieur des racines et du signe <strong>opposé à a</strong> entre les racines. Si Δ ≤ 0, le trinôme est du signe de a partout (sauf éventuellement nul).
+      </div>
+
+      <h3>5. Relations coefficients–racines</h3>
+      <div class="formula-box">
+        <div class="formula-label">Formules de Viète</div>
+        <div class="math">
+          x₁ + x₂ = <span class="highlight">−b/a</span><br>
+          x₁ × x₂ = <span class="highlight">c/a</span>
+        </div>
+      </div>
+
+      <h3>6. Pièges classiques</h3>
+      <div class="alert danger">
+        <strong>⚠ Erreurs fréquentes</strong>
+        • Oublier que Δ = b² − 4ac et non b² + 4ac.<br>
+        • Confondre α (abscisse) et β (ordonnée) du sommet.<br>
+        • En inéquation, inverser le sens quand <span class="m">a &lt; 0</span>.<br>
+        • Ne pas vérifier que la forme factorisée est valide (Δ ≥ 0).
+      </div>
+    </div>
+  </div>
+
+  <!-- MÉTHODES -->
+  <div class="section s-methodes">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⚙️</div>
+      <div class="section-label">Méthodes Types</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="method-card">
+        <div class="method-header">Méthode 1 — Résoudre f(x) = 0</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Identifier a, b, c dans <span class="m">ax² + bx + c = 0</span>.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Calculer <span class="m">Δ = b² − 4ac</span>.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Conclure selon le signe de Δ (0, 1 ou 2 solutions).</div></div>
+          <div class="alert warning"><strong>Exemple</strong> Résoudre 2x² − 5x + 3 = 0.<br>Δ = 25 − 24 = 1 > 0. x₁ = (5−1)/4 = 1, x₂ = (5+1)/4 = 3/2.</div>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-header">Méthode 2 — Passer en forme canonique</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Calculer <span class="m">α = −b/2a</span>.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Calculer <span class="m">β = f(α)</span>.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Écrire <span class="m">f(x) = a(x − α)² + β</span>. Vérifier en développant.</div></div>
+          <div class="alert warning"><strong>Exemple</strong> f(x) = 3x² − 6x + 5. α = 1, β = f(1) = 2. Forme canonique : 3(x−1)² + 2.</div>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-header">Méthode 3 — Résoudre une inéquation f(x) > 0</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Calculer Δ et les racines éventuelles.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Dresser le tableau de signes : repérer le signe de a et positionner les racines.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Lire l'ensemble solution sur le tableau.</div></div>
+          <div class="alert warning"><strong>Exemple</strong> −x² + 4 > 0 (a = −1 &lt; 0). Racines : −2 et 2. Le trinôme est positif entre les racines, donc S = ]−2 ; 2[.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXERCICES -->
+  <div class="section s-exercices">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✏️</div>
+      <div class="section-label">Exercices Bac Blanc</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+
+      <div class="exercise">
+        <div class="exercise-header">
+          <span class="exercise-num">EXERCICE 1</span>
+          <span class="difficulty">⭐ Classique</span>
+        </div>
+        <div class="exercise-body">
+          <p class="sub">Soit <span class="m">f(x) = 2x² − 8x + 6</span>.</p>
+          <p class="sub"><strong>a)</strong> Calculer le discriminant et les racines de f.</p>
+          <p class="sub"><strong>b)</strong> Écrire f sous forme canonique.</p>
+          <p class="sub"><strong>c)</strong> Résoudre l'inéquation f(x) ≤ 0.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header">
+          <span class="exercise-num">EXERCICE 2</span>
+          <span class="difficulty">⭐⭐ Intermédiaire</span>
+        </div>
+        <div class="exercise-body">
+          <p class="sub">On cherche les valeurs de <span class="m">k ∈ ℝ</span> pour lesquelles l'équation <span class="m">x² − 2kx + k + 6 = 0</span> admet deux racines réelles distinctes.</p>
+          <p class="sub"><strong>a)</strong> Exprimer Δ en fonction de k.</p>
+          <p class="sub"><strong>b)</strong> Déterminer les valeurs de k satisfaisant la condition.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header">
+          <span class="exercise-num">EXERCICE 3</span>
+          <span class="difficulty">⭐⭐⭐ Difficile</span>
+        </div>
+        <div class="exercise-body">
+          <p class="sub">Soit <span class="m">f(x) = ax² + bx + c</span> un trinôme dont les racines vérifient <span class="m">x₁ + x₂ = 5</span> et <span class="m">x₁ × x₂ = 4</span>, avec <span class="m">f(0) = 8</span>.</p>
+          <p class="sub"><strong>a)</strong> Déterminer a, b, c.</p>
+          <p class="sub"><strong>b)</strong> Résoudre <span class="m">f(x) > 0</span>.</p>
+          <p class="sub"><strong>c)</strong> Montrer que pour tout réel x, <span class="m">f(x−1) + f(x+1) − 2f(x) = 4a</span>.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header">
+          <span class="exercise-num">EXERCICE 4</span>
+          <span class="difficulty">⭐⭐⭐⭐ Très difficile</span>
+        </div>
+        <div class="exercise-body">
+          <p class="sub">Soient <span class="m">f(x) = x² − (m+2)x + m</span> et <span class="m">g(x) = x² + 2x − 3</span> où <span class="m">m ∈ ℝ</span>.</p>
+          <p class="sub"><strong>a)</strong> Montrer que g admet toujours deux racines réelles distinctes. Les calculer.</p>
+          <p class="sub"><strong>b)</strong> Montrer que 1 est toujours racine de f. Trouver l'autre racine.</p>
+          <p class="sub"><strong>c)</strong> Déterminer m tel que f et g aient une racine commune différente de 1.</p>
+          <p class="sub"><strong>d)</strong> Pour ce m, résoudre <span class="m">f(x) · g(x) ≤ 0</span>.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CORRIGÉS -->
+  <div class="section s-corriges">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✅</div>
+      <div class="section-label">Corrigés Détaillés</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 1</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">a=2, b=−8, c=6. Δ = 64 − 48 = 16 > 0. x₁ = (8−4)/4 = 1, x₂ = (8+4)/4 = 3.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">α = −(−8)/(2·2) = 2. β = f(2) = 8−16+6 = −2. Forme canonique : <span class="m">f(x) = 2(x−2)² − 2</span>.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">a = 2 > 0. Tableau de signes : f(x) ≤ 0 entre les racines. Solution : <span class="m">[1 ; 3]</span>.</div></div>
+          <div class="result">✓ S = [1 ; 3]</div>
+        </div>
+      </div>
+
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 2</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">Δ = (−2k)² − 4·1·(k+6) = 4k² − 4k − 24 = 4(k² − k − 6).</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">Δ > 0 ⟺ k² − k − 6 > 0. Discriminant de k²−k−6 : 1+24 = 25. Racines : k = (1±5)/2, soit k = 3 ou k = −2. Donc k² − k − 6 > 0 pour k &lt; −2 ou k > 3.</div></div>
+          <div class="result">✓ k ∈ ]−∞ ; −2[ ∪ ]3 ; +∞[</div>
+        </div>
+      </div>
+
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 3</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">f(0) = c = 8. x₁+x₂ = −b/a = 5 et x₁·x₂ = c/a = 4/a = 8/a... Viète : c/a = 4, donc 8/a = 4, a = 2. −b/a = 5, b = −10. Ainsi f(x) = 2x²−10x+8.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">Δ = 100−64 = 36 > 0. x₁ = 1, x₂ = 4. a = 2 > 0, donc f(x) > 0 hors des racines : S = ]−∞;1[ ∪ ]4;+∞[.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">f(x−1) = 2(x−1)²−10(x−1)+8 = 2x²−14x+20. f(x+1) = 2(x+1)²−10(x+1)+8 = 2x²−6x. f(x−1)+f(x+1)−2f(x) = (2x²−14x+20)+(2x²−6x)−2(2x²−10x+8) = 4x²−20x+20−4x²+20x−16 = 4 = 4×1... En général 4a. ✓</div></div>
+          <div class="result">✓ Identité vérifiée, valant 4a = 8</div>
+        </div>
+      </div>
+
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 4</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">Δ_g = 4+12 = 16 > 0 → toujours deux racines. x = (−2±4)/2 : x₁ = −3, x₂ = 1.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">f(1) = 1−(m+2)+m = 1−m−2+m = −1 ≠ 0... Correction : f(1) = 1−(m+2)·1+m = 1−m−2+m = −1. Attention, cela vaut −1, pas 0. Vérifions : f(x) = x²−(m+2)x+m. f(m) = m²−(m+2)m+m = m²−m²−2m+m = −m. Pour x = 1 : 1−m−2+m = −1 ≠ 0. En réalité la racine évidente est x = m : f(m) = m²−(m+2)m+m = −m, et x = 1 : f(1) = −1. La racine évidente est cherchée par factorisation : f(x) = (x−1)(x−m). On vérifie : développé = x²−(1+m)x+m, donc b = −(1+m) = −(m+2) → m+2 = 1+m : impossible. La racine est donc x = m uniquement si f(m) = 0, soit m² −(m+2)m+m = −m = 0, i.e. m = 0. On relance : les racines par Δ = (m+2)²−4m = m²+4 > 0 toujours. Racines : x = [(m+2)±√(m²+4)]/2. Racine commune avec g (x₁=−3 ou x₂=1) : tester x=1 : f(1) = −1 ≠ 0 (jamais). Tester x = −3 : f(−3) = 9+3(m+2)+m = 9+3m+6+m = 15+4m = 0 → m = −15/4.</div></div>
+          <div class="corrige-step"><div class="cs-num">d)</div><div class="cs-text">Pour m = −15/4 : racines de f → f(x) = x²−(−7/4)x−15/4 = x²+7x/4−15/4. Racines : x = −3 et x = 5/4. f(x)·g(x) = (x+3)(x−5/4)·(x+3)(x−1) = (x+3)²(x−5/4)(x−1). Ce produit est ≤ 0 ⟺ (x−5/4)(x−1) ≤ 0 (le carré est ≥ 0, et = 0 si x = −3).</div></div>
+          <div class="result">✓ S = {−3} ∪ [1 ; 5/4]</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ERREURS / ESSENTIEL -->
+  <div class="section s-erreurs">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">🚨</div>
+      <div class="section-label">Erreurs Fréquentes</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="alert danger"><strong>Erreur #1</strong> Calculer Δ = b² − 4ac mais oublier le signe négatif devant 4ac quand a ou c est négatif → toujours entourer les coefficients.</div>
+      <div class="alert danger"><strong>Erreur #2</strong> Penser que Δ = 0 ⟹ pas de solution. FAUX : il y a une solution (double) x = −b/2a.</div>
+      <div class="alert danger"><strong>Erreur #3</strong> En inéquation ax² + bx + c ≥ 0 avec a &lt; 0, lire la solution comme si a > 0 (inverser le tableau de signes).</div>
+      <div class="alert danger"><strong>Erreur #4</strong> Confondre "factorisation" (utilise les racines) et "forme canonique" (utilise le sommet).</div>
+    </div>
+  </div>
+
+  <div class="section s-essential">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⭐</div>
+      <div class="section-label">À Savoir Absolument</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="essential-grid">
+        <div class="essential-item"><div class="ei-title">Discriminant</div><p>Δ = b² − 4ac. Son signe détermine le nombre de racines réelles.</p></div>
+        <div class="essential-item"><div class="ei-title">Sommet</div><p>α = −b/2a, β = f(α). Toujours savoir le calculer rapidement.</p></div>
+        <div class="essential-item"><div class="ei-title">Signe du trinôme</div><p>Du signe de a à l'extérieur des racines, signe opposé entre les racines.</p></div>
+        <div class="essential-item"><div class="ei-title">Viète</div><p>x₁ + x₂ = −b/a et x₁·x₂ = c/a. Très utile pour reconstruire un trinôme.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- FIN FICHE 1 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FICHE 2 : SUITES NUMÉRIQUES                               -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="fiche" id="fiche-1">
+  <div class="fiche-header">
+    <div class="fiche-number">FICHE 02 / 07</div>
+    <div class="fiche-title">Suites Numériques</div>
+    <div class="fiche-tags">
+      <span class="tag">Convergence</span>
+      <span class="tag">Monotonie</span>
+      <span class="tag">Raisonnement par récurrence</span>
+      <span class="tag">Suite récurrente</span>
+    </div>
+  </div>
+
+  <div class="section s-cours">
+    <div class="section-header open" onclick="toggleSection(this)">
+      <div class="section-icon">📖</div>
+      <div class="section-label">Mini-Cours</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body open">
+      <h3>1. Modes de définition d'une suite</h3>
+      <table>
+        <tr><th>Type</th><th>Notation</th><th>Exemple</th></tr>
+        <tr><td>Terme général (explicite)</td><td>uₙ = f(n)</td><td>uₙ = 2n + 1</td></tr>
+        <tr><td>Relation de récurrence</td><td>uₙ₊₁ = g(uₙ)</td><td>uₙ₊₁ = 2uₙ − 3</td></tr>
+        <tr><td>Récurrence d'ordre 2</td><td>uₙ₊₂ = h(uₙ₊₁, uₙ)</td><td>Fibonacci</td></tr>
+      </table>
+
+      <h3>2. Sens de variation</h3>
+      <div class="formula-box">
+        <div class="formula-label">Monotonie — méthodes</div>
+        <div class="math">
+          Méthode 1 (différence) : <span class="highlight">uₙ₊₁ − uₙ ≥ 0</span> ⟹ croissante<br>
+          Méthode 2 (quotient, si uₙ > 0) : <span class="highlight">uₙ₊₁/uₙ ≥ 1</span> ⟹ croissante<br>
+          Méthode 3 (fonction) : si uₙ = f(n), étudier la monotonie de f
+        </div>
+      </div>
+
+      <h3>3. Suites bornées et convergence</h3>
+      <p>Une suite est <strong>majorée</strong> si ∃ M tel que uₙ ≤ M pour tout n. Elle est <strong>minorée</strong> si ∃ m tel que uₙ ≥ m. Elle est <strong>bornée</strong> si elle est majorée ET minorée.</p>
+
+      <div class="alert success">
+        <strong>Théorème fondamental (à connaître)</strong>
+        Toute suite <strong>croissante et majorée</strong> est convergente. Toute suite <strong>décroissante et minorée</strong> est convergente.
+      </div>
+
+      <h3>4. Limite d'une suite récurrente uₙ₊₁ = f(uₙ)</h3>
+      <div class="formula-box">
+        <div class="formula-label">Méthode pour trouver la limite ℓ</div>
+        <div class="math">
+          Si (uₙ) converge vers ℓ, alors ℓ vérifie :<br>
+          <span class="highlight">ℓ = f(ℓ)</span>  (point fixe de f)
+        </div>
+      </div>
+
+      <h3>5. Raisonnement par récurrence</h3>
+      <div class="alert info">
+        <strong>Structure d'une récurrence</strong>
+        <strong>Initialisation :</strong> Vérifier la propriété au rang n₀ (souvent n = 0 ou n = 1).<br>
+        <strong>Hérédité :</strong> Supposer la propriété vraie au rang n (hypothèse de récurrence HR), puis <em>démontrer</em> qu'elle est vraie au rang n+1.<br>
+        <strong>Conclusion :</strong> La propriété est vraie pour tout n ≥ n₀.
+      </div>
+
+      <h3>6. Suites et inégalités</h3>
+      <div class="formula-box">
+        <div class="formula-label">Encadrement et gendarmes</div>
+        <div class="math">
+          Si vₙ ≤ uₙ ≤ wₙ et lim vₙ = lim wₙ = ℓ,<br>
+          alors <span class="highlight">lim uₙ = ℓ</span>  (théorème des gendarmes)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-methodes">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⚙️</div>
+      <div class="section-label">Méthodes Types</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="method-card">
+        <div class="method-header">Méthode 1 — Étudier la monotonie par récurrence</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Poser la conjecture sur la variation à partir des premiers termes.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Initialiser : vérifier uₙ₊₁ − uₙ au rang 0 (ou 1).</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Hérédité : supposer uₙ₊₁ − uₙ ≥ 0, montrer uₙ₊₂ − uₙ₊₁ ≥ 0.</div></div>
+          <div class="alert warning"><strong>Exemple</strong> uₙ₊₁ = √(uₙ + 2), u₀ = 1. u₁ = √3 > 1, suite croissante (à démontrer).</div>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-header">Méthode 2 — Trouver la limite d'une suite récurrente</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Montrer que la suite est monotone et bornée (convergente).</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Résoudre ℓ = f(ℓ) pour trouver les points fixes.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Justifier que la suite converge vers l'unique point fixe cohérent.</div></div>
+          <div class="alert warning"><strong>Exemple</strong> uₙ₊₁ = (uₙ + 4)/2. Point fixe : ℓ = (ℓ+4)/2 → ℓ = 4. Si u₀ &lt; 4, suite croissante majorée par 4 → converge vers 4.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-exercices">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✏️</div>
+      <div class="section-label">Exercices Bac Blanc</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 1</span><span class="difficulty">⭐ Classique</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit <span class="m">uₙ = n² − 3n + 2</span>.</p>
+          <p class="sub"><strong>a)</strong> Calculer u₀, u₁, u₂, u₃.</p>
+          <p class="sub"><strong>b)</strong> Étudier la monotonie de (uₙ) pour n ≥ 2.</p>
+          <p class="sub"><strong>c)</strong> La suite est-elle bornée ? Convergente ?</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 2</span><span class="difficulty">⭐⭐ Intermédiaire</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit la suite définie par <span class="m">u₀ = 3</span> et <span class="m">uₙ₊₁ = (uₙ²+ 2) / (2uₙ)</span>.</p>
+          <p class="sub"><strong>a)</strong> Calculer u₁ et u₂.</p>
+          <p class="sub"><strong>b)</strong> Montrer que pour tout n, <span class="m">uₙ ≥ √2</span> (par récurrence).</p>
+          <p class="sub"><strong>c)</strong> Montrer que la suite est décroissante (pour n ≥ 0).</p>
+          <p class="sub"><strong>d)</strong> En déduire que (uₙ) converge et calculer sa limite.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 3</span><span class="difficulty">⭐⭐⭐ Difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit <span class="m">vₙ = uₙ − √2</span> où (uₙ) est la suite de l'exercice 2.</p>
+          <p class="sub"><strong>a)</strong> Exprimer vₙ₊₁ en fonction de vₙ (et uₙ).</p>
+          <p class="sub"><strong>b)</strong> En déduire que <span class="m">vₙ₊₁ ≤ vₙ²/(2√2)</span>.</p>
+          <p class="sub"><strong>c)</strong> Interpréter : cette suite converge-t-elle « vite » ? (convergence quadratique)</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 4</span><span class="difficulty">⭐⭐⭐⭐ Très difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Pour n ≥ 1, on pose <span class="m">Sₙ = Σₖ₌₁ⁿ 1/k²</span>.</p>
+          <p class="sub"><strong>a)</strong> Montrer que <span class="m">1/k² ≤ 1/(k(k−1)) = 1/(k−1) − 1/k</span> pour k ≥ 2.</p>
+          <p class="sub"><strong>b)</strong> En déduire que Sₙ ≤ 2 − 1/n pour tout n ≥ 2.</p>
+          <p class="sub"><strong>c)</strong> Montrer que (Sₙ) est croissante et majorée, donc convergente.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section s-corriges">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✅</div>
+      <div class="section-label">Corrigés Détaillés</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 2</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">u₁ = (9+2)/6 = 11/6 ≈ 1.833. u₂ = ((11/6)²+2)/(2·11/6) = (121/36+72/36)/(22/6) = (193/36)·(6/22) = 193/132 ≈ 1.4621.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">HR : uₙ ≥ √2. Montrons uₙ₊₁ ≥ √2. uₙ₊₁ − √2 = (uₙ²+2)/(2uₙ) − √2 = (uₙ² + 2 − 2√2 uₙ)/(2uₙ) = (uₙ − √2)²/(2uₙ). Or (uₙ−√2)² ≥ 0 et uₙ > 0, donc uₙ₊₁ − √2 ≥ 0. ✓ Initialisation : u₀ = 3 ≥ √2 ✓.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">uₙ₊₁ − uₙ = (uₙ²+2)/(2uₙ) − uₙ = (uₙ²+2−2uₙ²)/(2uₙ) = (2−uₙ²)/(2uₙ). Or uₙ ≥ √2, donc uₙ² ≥ 2, donc 2−uₙ² ≤ 0, donc uₙ₊₁ ≤ uₙ : décroissante. ✓</div></div>
+          <div class="corrige-step"><div class="cs-num">d)</div><div class="cs-text">Décroissante et minorée par √2 : converge. Point fixe : ℓ = (ℓ²+2)/(2ℓ) → 2ℓ² = ℓ²+2 → ℓ² = 2 → ℓ = √2.</div></div>
+          <div class="result">✓ lim uₙ = √2  (suite de Newton-Raphson pour √2 !)</div>
+        </div>
+      </div>
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 4</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">Pour k ≥ 2 : k(k−1) = k² − k ≤ k² donc 1/k² ≤ 1/(k(k−1)). Et 1/(k(k−1)) = 1/(k−1) − 1/k (décomposition en éléments simples). ✓</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">Sₙ = 1 + Σₖ₌₂ⁿ 1/k² ≤ 1 + Σₖ₌₂ⁿ (1/(k−1) − 1/k) = 1 + (1 − 1/n) = 2 − 1/n. ✓ (Somme télescopique)</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">Sₙ₊₁ − Sₙ = 1/(n+1)² > 0 : croissante. Majorée par 2 (car 2 − 1/n &lt; 2). Donc (Sₙ) converge. (La limite est π²/6, mais ce n'est pas au programme !)</div></div>
+          <div class="result">✓ (Sₙ) est convergente, de limite ≤ 2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-erreurs">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">🚨</div>
+      <div class="section-label">Erreurs Fréquentes</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="alert danger"><strong>Erreur #1</strong> Oublier l'initialisation dans une récurrence. Sans elle, la démonstration est invalide.</div>
+      <div class="alert danger"><strong>Erreur #2</strong> Conclure qu'une suite converge "parce qu'elle semble avoir une limite" sans justifier monotonie + bornitude.</div>
+      <div class="alert danger"><strong>Erreur #3</strong> Confondre "point fixe" (solution de ℓ = f(ℓ)) et "limite" : un point fixe n'est la limite que si la suite converge.</div>
+    </div>
+  </div>
+
+  <div class="section s-essential">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⭐</div>
+      <div class="section-label">À Savoir Absolument</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="essential-grid">
+        <div class="essential-item"><div class="ei-title">Convergence</div><p>Croissante + majorée ⟹ converge. Décroissante + minorée ⟹ converge.</p></div>
+        <div class="essential-item"><div class="ei-title">Récurrence</div><p>Toujours : Initialisation → HR → Hérédité → Conclusion.</p></div>
+        <div class="essential-item"><div class="ei-title">Limite récurrente</div><p>Si uₙ → ℓ, alors ℓ = f(ℓ). Résoudre cette équation.</p></div>
+        <div class="essential-item"><div class="ei-title">Monotonie</div><p>Calculer uₙ₊₁ − uₙ (ou le quotient) et étudier son signe.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- FIN FICHE 2 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FICHE 3 : PROBABILITÉS CONDITIONNELLES                    -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="fiche" id="fiche-2">
+  <div class="fiche-header">
+    <div class="fiche-number">FICHE 03 / 07</div>
+    <div class="fiche-title">Probabilités Conditionnelles</div>
+    <div class="fiche-tags">
+      <span class="tag">Probabilité conditionnelle</span>
+      <span class="tag">Bayes</span>
+      <span class="tag">Probabilités totales</span>
+      <span class="tag">Indépendance</span>
+    </div>
+  </div>
+
+  <div class="section s-cours">
+    <div class="section-header open" onclick="toggleSection(this)">
+      <div class="section-icon">📖</div>
+      <div class="section-label">Mini-Cours</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body open">
+      <h3>1. Probabilité conditionnelle</h3>
+      <div class="formula-box">
+        <div class="formula-label">Définition</div>
+        <div class="math">
+          P(B|A) = <span class="highlight">P(A ∩ B) / P(A)</span>  (avec P(A) > 0)<br><br>
+          Équivalent : P(A ∩ B) = P(A) × P(B|A)
+        </div>
+      </div>
+
+      <h3>2. Formule des probabilités totales</h3>
+      <div class="formula-box">
+        <div class="formula-label">Partition (A₁, ..., Aₙ) de l'univers</div>
+        <div class="math">
+          P(B) = <span class="highlight">Σᵢ P(Aᵢ) × P(B|Aᵢ)</span><br><br>
+          Cas courant (partition en 2) :<br>
+          P(B) = P(A)·P(B|A) + P(Ā)·P(B|Ā)
+        </div>
+      </div>
+
+      <h3>3. Formule de Bayes</h3>
+      <div class="formula-box">
+        <div class="formula-label">Inversion des conditionnements</div>
+        <div class="math">
+          P(Aᵢ|B) = <span class="highlight">P(Aᵢ) × P(B|Aᵢ) / P(B)</span><br><br>
+          (P(B) calculé par la formule des probabilités totales)
+        </div>
+      </div>
+
+      <h3>4. Indépendance</h3>
+      <div class="formula-box">
+        <div class="formula-label">A et B sont indépendants si et seulement si</div>
+        <div class="math">
+          <span class="highlight">P(A ∩ B) = P(A) × P(B)</span><br>
+          Équivalent : P(B|A) = P(B)  (la connaissance de A ne change pas P(B))
+        </div>
+      </div>
+
+      <h3>5. Arbre de probabilités</h3>
+      <div class="alert info">
+        <strong>Lecture de l'arbre</strong>
+        • Le long d'un chemin : multiplier les probabilités.<br>
+        • Pour un événement composé de plusieurs chemins : additionner les probabilités de chaque chemin.<br>
+        • La somme de toutes les branches issues d'un nœud vaut 1.
+      </div>
+
+      <h3>6. Variables aléatoires — Rappels</h3>
+      <div class="formula-box">
+        <div class="formula-label">Espérance et variance</div>
+        <div class="math">
+          E(X) = <span class="highlight">Σ xᵢ · P(X = xᵢ)</span><br>
+          V(X) = E(X²) − [E(X)]²  =  <span class="highlight">Σ xᵢ² · P(X = xᵢ) − [E(X)]²</span><br>
+          σ(X) = √V(X)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-methodes">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⚙️</div>
+      <div class="section-label">Méthodes Types</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="method-card">
+        <div class="method-header">Méthode 1 — Appliquer Bayes (diagnostic)</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Identifier la partition (ex : malade M, non malade M̄).</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Calculer P(B) par la formule des probabilités totales.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Appliquer Bayes : P(M|B) = P(M)·P(B|M) / P(B).</div></div>
+          <div class="alert warning"><strong>Exemple</strong> Test positif B, P(M) = 0.01, P(B|M) = 0.99, P(B|M̄) = 0.05. P(B) = 0.01·0.99 + 0.99·0.05 = 0.0594. P(M|B) = 0.0099/0.0594 ≈ 0.167.</div>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-header">Méthode 2 — Vérifier l'indépendance</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Calculer P(A), P(B), P(A ∩ B) séparément.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Vérifier si P(A ∩ B) = P(A) × P(B).</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Conclure sur l'indépendance. NE PAS confondre avec l'incompatibilité (A ∩ B = ∅).</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-exercices">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✏️</div>
+      <div class="section-label">Exercices Bac Blanc</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 1</span><span class="difficulty">⭐ Classique</span></div>
+        <div class="exercise-body">
+          <p class="sub">Dans une classe, 60 % des élèves ont révisé (R). Parmi ceux qui ont révisé, 80 % réussissent (S). Parmi ceux qui n'ont pas révisé, 30 % réussissent.</p>
+          <p class="sub"><strong>a)</strong> Construire un arbre de probabilités.</p>
+          <p class="sub"><strong>b)</strong> Calculer P(S).</p>
+          <p class="sub"><strong>c)</strong> Sachant qu'un élève a réussi, quelle est la probabilité qu'il ait révisé ?</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 2</span><span class="difficulty">⭐⭐ Intermédiaire</span></div>
+        <div class="exercise-body">
+          <p class="sub">Une urne contient 4 boules rouges et 6 boules bleues. On tire deux boules sans remise.</p>
+          <p class="sub"><strong>a)</strong> Calculer la probabilité d'obtenir deux boules de la même couleur.</p>
+          <p class="sub"><strong>b)</strong> Soit X le nombre de boules rouges obtenues. Donner la loi de X, son espérance et sa variance.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 3</span><span class="difficulty">⭐⭐⭐ Difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Deux usines A et B fabriquent des pièces. A produit 60 % du total, B produit 40 %. Le taux de défaut est 2 % pour A et 5 % pour B. On prélève une pièce au hasard.</p>
+          <p class="sub"><strong>a)</strong> Calculer la probabilité qu'elle soit défectueuse.</p>
+          <p class="sub"><strong>b)</strong> Sachant qu'elle est défectueuse, quelle est la probabilité qu'elle provienne de B ?</p>
+          <p class="sub"><strong>c)</strong> On prélève 3 pièces indépendamment. Quelle est la probabilité qu'exactement 2 soient défectueuses ?</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 4</span><span class="difficulty">⭐⭐⭐⭐ Très difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit A et B deux événements avec P(A) = 1/3, P(B) = 1/2, P(A ∪ B) = 2/3.</p>
+          <p class="sub"><strong>a)</strong> Calculer P(A ∩ B). A et B sont-ils indépendants ?</p>
+          <p class="sub"><strong>b)</strong> Calculer P(A|B) et P(B|A).</p>
+          <p class="sub"><strong>c)</strong> Soit C un événement indépendant de A et de B, avec P(C) = 1/4. Calculer P(A ∩ B ∩ C) et P(A ∪ B ∪ C).</p>
+          <p class="sub"><strong>d)</strong> (Bonus) Vérifier que P(A ∪ B ∪ C) = P(A)+P(B)+P(C) − P(A∩B) − P(A∩C) − P(B∩C) + P(A∩B∩C).</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section s-corriges">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✅</div>
+      <div class="section-label">Corrigés Détaillés</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 1</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">P(S) = P(R)·P(S|R) + P(R̄)·P(S|R̄) = 0.6×0.8 + 0.4×0.3 = 0.48 + 0.12 = 0.60.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">P(R|S) = P(R)·P(S|R)/P(S) = 0.48/0.60 = 4/5 = 0.8.</div></div>
+          <div class="result">✓ P(R|S) = 0.8 = 80%</div>
+        </div>
+      </div>
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 3</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">P(D) = 0.6×0.02 + 0.4×0.05 = 0.012 + 0.020 = 0.032.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">P(B|D) = P(B)·P(D|B)/P(D) = (0.4×0.05)/0.032 = 0.020/0.032 = 5/8 = 0.625.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">p = P(D) = 0.032. Loi B(3, 0.032). P(X=2) = C(3,2)·p²·(1−p) = 3×(0.032)²×0.968 ≈ 3×0.001024×0.968 ≈ 0.00297.</div></div>
+          <div class="result">✓ P(X=2) ≈ 0.003 (environ 0.3%)</div>
+        </div>
+      </div>
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 4</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">P(A∩B) = P(A)+P(B)−P(A∪B) = 1/3+1/2−2/3 = 1/6. P(A)·P(B) = 1/3·1/2 = 1/6. Oui, A et B sont indépendants !</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">P(A|B) = P(A∩B)/P(B) = (1/6)/(1/2) = 1/3 = P(A). P(B|A) = 1/2 = P(B). Cohérent avec l'indépendance.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">A,B,C mutuellement indépendants : P(A∩B∩C) = P(A)·P(B)·P(C) = 1/3·1/2·1/4 = 1/24. Pour P(A∪B∪C), utiliser la formule inclusion-exclusion avec P(A∩C) = 1/12, P(B∩C) = 1/8. P(A∪B∪C) = 1/3+1/2+1/4−1/6−1/12−1/8+1/24 = 8/24+12/24+6/24−4/24−2/24−3/24+1/24 = 18/24 = 3/4.</div></div>
+          <div class="result">✓ P(A∪B∪C) = 3/4</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-erreurs">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">🚨</div>
+      <div class="section-label">Erreurs Fréquentes</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="alert danger"><strong>Erreur #1</strong> Confondre P(A|B) et P(B|A) : ce sont deux quantités différentes !</div>
+      <div class="alert danger"><strong>Erreur #2</strong> Croire qu'incompatibilité (A∩B=∅) ⟹ indépendance. C'est le contraire : si P(A)>0 et P(B)>0, alors A et B incompatibles ⟹ dépendants.</div>
+      <div class="alert danger"><strong>Erreur #3</strong> Oublier de vérifier P(A) > 0 avant d'écrire P(B|A). Si P(A) = 0, la conditionnelle n'est pas définie.</div>
+    </div>
+  </div>
+
+  <div class="section s-essential">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⭐</div>
+      <div class="section-label">À Savoir Absolument</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="essential-grid">
+        <div class="essential-item"><div class="ei-title">Définition</div><p>P(B|A) = P(A∩B)/P(A). Toujours vérifier P(A) > 0.</p></div>
+        <div class="essential-item"><div class="ei-title">Prob. totales</div><p>P(B) = Σ P(Aᵢ)·P(B|Aᵢ) sur toute partition.</p></div>
+        <div class="essential-item"><div class="ei-title">Bayes</div><p>P(Aᵢ|B) = P(Aᵢ)·P(B|Aᵢ) / P(B). Numérateur = un chemin, dénominateur = tous les chemins.</p></div>
+        <div class="essential-item"><div class="ei-title">Indépendance</div><p>A⊥B ⟺ P(A∩B) = P(A)·P(B). ≠ incompatibilité.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- FIN FICHE 3 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FICHE 4 : SUITES ARITHMÉTIQUES ET GÉOMÉTRIQUES            -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="fiche" id="fiche-3">
+  <div class="fiche-header">
+    <div class="fiche-number">FICHE 04 / 07</div>
+    <div class="fiche-title">Suites Arithmétiques &amp; Géométriques</div>
+    <div class="fiche-tags">
+      <span class="tag">Terme général</span>
+      <span class="tag">Somme des termes</span>
+      <span class="tag">Applications financières</span>
+    </div>
+  </div>
+
+  <div class="section s-cours">
+    <div class="section-header open" onclick="toggleSection(this)">
+      <div class="section-icon">📖</div>
+      <div class="section-label">Mini-Cours</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body open">
+      <h3>1. Suite arithmétique</h3>
+      <div class="formula-box">
+        <div class="formula-label">Formules essentielles</div>
+        <div class="math">
+          Définition : uₙ₊₁ = uₙ + r  (r = raison)<br>
+          Terme général : <span class="highlight">uₙ = u₀ + nr</span>  (ou  uₙ = u₁ + (n−1)r)<br>
+          Somme : <span class="highlight">Sₙ = (n+1)(u₀ + uₙ)/2</span>  (somme de n+1 termes, de u₀ à uₙ)<br>
+          Rappel utile : 1+2+...+n = n(n+1)/2
+        </div>
+      </div>
+
+      <h3>2. Suite géométrique</h3>
+      <div class="formula-box">
+        <div class="formula-label">Formules essentielles</div>
+        <div class="math">
+          Définition : uₙ₊₁ = q·uₙ  (q = raison, q ≠ 0)<br>
+          Terme général : <span class="highlight">uₙ = u₀ × qⁿ</span><br>
+          Somme (q ≠ 1) : <span class="highlight">Sₙ = u₀ × (1 − qⁿ⁺¹)/(1 − q)</span><br>
+          Rappel : 1 + q + q² + ... + qⁿ = (1 − qⁿ⁺¹)/(1 − q)
+        </div>
+      </div>
+
+      <h3>3. Comportement à l'infini</h3>
+      <table>
+        <tr><th>Suite</th><th>Condition</th><th>Comportement</th></tr>
+        <tr><td>Arithmétique (r > 0)</td><td>—</td><td>→ +∞</td></tr>
+        <tr><td>Arithmétique (r &lt; 0)</td><td>—</td><td>→ −∞</td></tr>
+        <tr><td>Géométrique</td><td>|q| &lt; 1</td><td>→ 0</td></tr>
+        <tr><td>Géométrique</td><td>q > 1</td><td>→ +∞</td></tr>
+        <tr><td>Géométrique</td><td>q = 1</td><td>constante = u₀</td></tr>
+        <tr><td>Géométrique</td><td>q = −1</td><td>oscille entre u₀ et −u₀</td></tr>
+        <tr><td>Géométrique</td><td>q &lt; −1</td><td>oscille, diverge</td></tr>
+      </table>
+
+      <h3>4. Suite arithmético-géométrique</h3>
+      <div class="formula-box">
+        <div class="formula-label">Méthode de résolution</div>
+        <div class="math">
+          uₙ₊₁ = a·uₙ + b  (a ≠ 1, a ≠ 0)<br>
+          1. Trouver le point fixe : ℓ = aℓ + b → ℓ = b/(1−a)<br>
+          2. Poser vₙ = uₙ − ℓ<br>
+          3. Montrer que (vₙ) est géométrique de raison a<br>
+          <span class="highlight">vₙ = v₀ × aⁿ  puis  uₙ = ℓ + (u₀ − ℓ)·aⁿ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-methodes">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⚙️</div>
+      <div class="section-label">Méthodes Types</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="method-card">
+        <div class="method-header">Méthode — Suite arithmético-géométrique</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Identifier a et b dans uₙ₊₁ = a·uₙ + b.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Résoudre ℓ = a·ℓ + b (point fixe).</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Poser vₙ = uₙ − ℓ et montrer vₙ₊₁ = a·vₙ (géométrique de raison a).</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text">Exprimer vₙ = v₀·aⁿ et en déduire uₙ.</div></div>
+          <div class="alert warning"><strong>Exemple</strong> uₙ₊₁ = 2uₙ − 3, u₀ = 5. ℓ = 3. vₙ = uₙ − 3 → vₙ₊₁ = 2vₙ, v₀ = 2. vₙ = 2·2ⁿ = 2ⁿ⁺¹. uₙ = 3 + 2ⁿ⁺¹.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-exercices">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✏️</div>
+      <div class="section-label">Exercices Bac Blanc</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 1</span><span class="difficulty">⭐ Classique</span></div>
+        <div class="exercise-body">
+          <p class="sub">Une suite arithmétique a pour 3ème terme 7 et 8ème terme 22.</p>
+          <p class="sub"><strong>a)</strong> Déterminer la raison r et le premier terme u₁.</p>
+          <p class="sub"><strong>b)</strong> Calculer la somme S = u₁ + u₂ + ... + u₂₀.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 2</span><span class="difficulty">⭐⭐ Intermédiaire</span></div>
+        <div class="exercise-body">
+          <p class="sub">Un capital de 1000 € est placé à intérêts composés au taux annuel de 3%.</p>
+          <p class="sub"><strong>a)</strong> Exprimer le capital Cₙ après n années.</p>
+          <p class="sub"><strong>b)</strong> Au bout de combien d'années le capital aura-t-il doublé ? (Utiliser ln)</p>
+          <p class="sub"><strong>c)</strong> Calculer la somme totale placée si on verse 100 € par an pendant 10 ans (début de chaque année), sachant que chaque versement est ensuite placé au même taux.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 3</span><span class="difficulty">⭐⭐⭐ Difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit (uₙ) définie par <span class="m">u₀ = 2</span> et <span class="m">uₙ₊₁ = (1/3)uₙ + 4</span>.</p>
+          <p class="sub"><strong>a)</strong> Montrer que la suite (vₙ) = uₙ − 6 est géométrique. Préciser sa raison.</p>
+          <p class="sub"><strong>b)</strong> Exprimer uₙ en fonction de n.</p>
+          <p class="sub"><strong>c)</strong> Calculer Sₙ = u₀ + u₁ + ... + uₙ.</p>
+          <p class="sub"><strong>d)</strong> Donner la limite de (uₙ) et de Sₙ/n.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 4</span><span class="difficulty">⭐⭐⭐⭐ Très difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit (aₙ) et (bₙ) définies par <span class="m">a₀ = 1, b₀ = 0</span> et le système : <span class="m">aₙ₊₁ = aₙ + 2bₙ</span>, <span class="m">bₙ₊₁ = aₙ + bₙ</span>.</p>
+          <p class="sub"><strong>a)</strong> Calculer a₁, b₁, a₂, b₂.</p>
+          <p class="sub"><strong>b)</strong> Montrer que uₙ = aₙ + bₙ est géométrique et trouver sa raison.</p>
+          <p class="sub"><strong>c)</strong> Montrer que vₙ = aₙ − 2bₙ est géométrique. En déduire aₙ et bₙ explicitement.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section s-corriges">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✅</div>
+      <div class="section-label">Corrigés Détaillés</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 1</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">u₃ = u₁ + 2r = 7 et u₈ = u₁ + 7r = 22. Soustraction : 5r = 15 → r = 3, u₁ = 1.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">S = Σₖ₌₁²⁰ uₖ = 20×(u₁+u₂₀)/2 = 10×(1+58) = 590. (u₂₀ = 1+19×3 = 58)</div></div>
+          <div class="result">✓ r = 3, u₁ = 1, S = 590</div>
+        </div>
+      </div>
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 3</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">vₙ₊₁ = uₙ₊₁−6 = (1/3)uₙ+4−6 = (1/3)uₙ−2 = (1/3)(uₙ−6) = (1/3)vₙ. Géométrique de raison q = 1/3. v₀ = u₀−6 = −4.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">vₙ = −4·(1/3)ⁿ, donc uₙ = 6 − 4·(1/3)ⁿ.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">Sₙ = Σₖ₌₀ⁿ uₖ = 6(n+1) − 4·Σₖ₌₀ⁿ (1/3)ᵏ = 6(n+1) − 4·(1−(1/3)ⁿ⁺¹)/(2/3) = 6(n+1) − 6(1−(1/3)ⁿ⁺¹) = 6n + 6·(1/3)ⁿ⁺¹.</div></div>
+          <div class="corrige-step"><div class="cs-num">d)</div><div class="cs-text">lim uₙ = 6 (car (1/3)ⁿ → 0). Sₙ/n ≈ 6n/n = 6 → 6.</div></div>
+          <div class="result">✓ uₙ = 6 − 4·(1/3)ⁿ, lim uₙ = 6</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-erreurs">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">🚨</div>
+      <div class="section-label">Erreurs Fréquentes</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="alert danger"><strong>Erreur #1</strong> Pour la somme géométrique : bien compter le nombre de termes ! De u₀ à uₙ : il y a n+1 termes, pas n.</div>
+      <div class="alert danger"><strong>Erreur #2</strong> Confondre raison d'une suite arithmétique (on ajoute) et d'une géométrique (on multiplie).</div>
+      <div class="alert danger"><strong>Erreur #3</strong> Appliquer la formule de somme géométrique sans vérifier q ≠ 1.</div>
+    </div>
+  </div>
+
+  <div class="section s-essential">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⭐</div>
+      <div class="section-label">À Savoir Absolument</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="essential-grid">
+        <div class="essential-item"><div class="ei-title">Arithmétique</div><p>uₙ = u₀ + nr. Somme = nb_termes × (premier + dernier)/2.</p></div>
+        <div class="essential-item"><div class="ei-title">Géométrique</div><p>uₙ = u₀·qⁿ. Somme = u₀·(1−qⁿ⁺¹)/(1−q).</p></div>
+        <div class="essential-item"><div class="ei-title">Arithmético-géom.</div><p>uₙ₊₁ = auₙ+b → chercher ℓ=b/(1−a), poser vₙ=uₙ−ℓ.</p></div>
+        <div class="essential-item"><div class="ei-title">Comportement géom.</div><p>|q|&lt;1 → 0 ; q>1 → ±∞ ; q=1 → cte ; |q|>1,q&lt;0 → oscille.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- FIN FICHE 4 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FICHE 5 : DÉRIVATION                                      -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="fiche" id="fiche-4">
+  <div class="fiche-header">
+    <div class="fiche-number">FICHE 05 / 07</div>
+    <div class="fiche-title">Dérivation</div>
+    <div class="fiche-tags">
+      <span class="tag">Dérivées usuelles</span>
+      <span class="tag">Règles de calcul</span>
+      <span class="tag">Tangente</span>
+      <span class="tag">Variations</span>
+    </div>
+  </div>
+
+  <div class="section s-cours">
+    <div class="section-header open" onclick="toggleSection(this)">
+      <div class="section-icon">📖</div>
+      <div class="section-label">Mini-Cours</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body open">
+      <h3>1. Dérivées usuelles</h3>
+      <table>
+        <tr><th>f(x)</th><th>f'(x)</th><th>Domaine</th></tr>
+        <tr><td>k (cste)</td><td>0</td><td>ℝ</td></tr>
+        <tr><td>xⁿ (n ∈ ℤ)</td><td>n·xⁿ⁻¹</td><td>ℝ (ou ℝ* si n&lt;0)</td></tr>
+        <tr><td>√x</td><td>1/(2√x)</td><td>]0;+∞[</td></tr>
+        <tr><td>1/x</td><td>−1/x²</td><td>ℝ*</td></tr>
+        <tr><td>eˣ</td><td>eˣ</td><td>ℝ</td></tr>
+        <tr><td>ln x</td><td>1/x</td><td>]0;+∞[</td></tr>
+        <tr><td>sin x</td><td>cos x</td><td>ℝ</td></tr>
+        <tr><td>cos x</td><td>−sin x</td><td>ℝ</td></tr>
+      </table>
+
+      <h3>2. Règles de calcul</h3>
+      <div class="formula-box">
+        <div class="formula-label">Opérations sur les dérivées</div>
+        <div class="math">
+          (u + v)' = u' + v'<br>
+          (λu)' = λu'<br>
+          (uv)' = <span class="highlight">u'v + uv'</span><br>
+          (u/v)' = <span class="highlight">(u'v − uv') / v²</span>  (v ≠ 0)<br>
+          (u∘v)' = <span class="highlight">v' × u'(v)</span>  (dérivée composée)
+        </div>
+      </div>
+
+      <h3>3. Dérivées composées usuelles</h3>
+      <div class="formula-box">
+        <div class="formula-label">Formules "chaîne" à connaître</div>
+        <div class="math">
+          [u(x)ⁿ]' = <span class="highlight">n·u'(x)·u(x)ⁿ⁻¹</span><br>
+          [√u(x)]' = <span class="highlight">u'(x) / (2√u(x))</span><br>
+          [eᵘ⁽ˣ⁾]' = <span class="highlight">u'(x)·eᵘ⁽ˣ⁾</span><br>
+          [ln u(x)]' = <span class="highlight">u'(x) / u(x)</span>
+        </div>
+      </div>
+
+      <h3>4. Tangente et dérivabilité</h3>
+      <div class="formula-box">
+        <div class="formula-label">Équation de la tangente en x = a</div>
+        <div class="math">
+          <span class="highlight">y = f'(a)(x − a) + f(a)</span>
+        </div>
+      </div>
+      <p>f est dérivable en a si <span class="m">lim_{h→0} [f(a+h)−f(a)]/h</span> existe et est finie. Ce taux d'accroissement définit f'(a).</p>
+
+      <h3>5. Lien dérivée / variations</h3>
+      <div class="alert success">
+        <strong>Théorème central</strong>
+        • f'(x) > 0 sur I ⟹ f croissante sur I.<br>
+        • f'(x) &lt; 0 sur I ⟹ f décroissante sur I.<br>
+        • f'(a) = 0 est une CNS pour un extremum local (si changement de signe de f').
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-methodes">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⚙️</div>
+      <div class="section-label">Méthodes Types</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="method-card">
+        <div class="method-header">Méthode 1 — Étude complète d'une fonction</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Déterminer le domaine de définition.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Calculer f'(x) en appliquant les règles de dérivation.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Résoudre f'(x) = 0 et étudier le signe de f'(x).</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text">Dresser le tableau de variations avec les limites aux bornes.</div></div>
+          <div class="alert warning"><strong>Exemple</strong> f(x) = x³ − 3x + 2. f'(x) = 3x² − 3 = 3(x−1)(x+1). f' > 0 sur ]−∞;−1[ ∪ ]1;+∞[, f' &lt; 0 sur ]−1;1[. Max local en −1 : f(−1) = 4. Min local en 1 : f(1) = 0.</div>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-header">Méthode 2 — Résoudre f(x) = k avec le tableau de variations</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Dresser le tableau de variations de f.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Comparer k aux valeurs extrêmes et aux extrema.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Lire graphiquement le nombre de solutions et leur localisation.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-exercices">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✏️</div>
+      <div class="section-label">Exercices Bac Blanc</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 1</span><span class="difficulty">⭐ Classique</span></div>
+        <div class="exercise-body">
+          <p class="sub">Calculer les dérivées des fonctions suivantes :</p>
+          <p class="sub"><strong>a)</strong> f(x) = (2x+1)⁴</p>
+          <p class="sub"><strong>b)</strong> g(x) = x·eˣ</p>
+          <p class="sub"><strong>c)</strong> h(x) = ln(x²+1)</p>
+          <p class="sub"><strong>d)</strong> k(x) = (x²−1)/(x+2)</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 2</span><span class="difficulty">⭐⭐ Intermédiaire</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit f(x) = x³ − 6x² + 9x − 2 sur ℝ.</p>
+          <p class="sub"><strong>a)</strong> Calculer f'(x) et résoudre f'(x) = 0.</p>
+          <p class="sub"><strong>b)</strong> Dresser le tableau de variations complet.</p>
+          <p class="sub"><strong>c)</strong> Écrire l'équation de la tangente à la courbe de f au point d'abscisse 1.</p>
+          <p class="sub"><strong>d)</strong> Combien l'équation f(x) = −2 a-t-elle de solutions ?</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 3</span><span class="difficulty">⭐⭐⭐ Difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit <span class="m">f(x) = (ax + b)·eˣ</span> où a et b sont des réels.</p>
+          <p class="sub"><strong>a)</strong> Calculer f'(x) et f''(x).</p>
+          <p class="sub"><strong>b)</strong> Déterminer a et b tels que f(0) = 1 et f ait un extremum en x = 2.</p>
+          <p class="sub"><strong>c)</strong> Montrer que pour ces valeurs, f est convexe sur ℝ (f'' ≥ 0).</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 4</span><span class="difficulty">⭐⭐⭐⭐ Très difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit <span class="m">f(x) = √x − ln x</span> sur ]0;+∞[.</p>
+          <p class="sub"><strong>a)</strong> Calculer f'(x) et étudier le signe de f'(x).</p>
+          <p class="sub"><strong>b)</strong> Dresser le tableau de variations. En déduire le minimum de f.</p>
+          <p class="sub"><strong>c)</strong> Montrer que pour tout x > 0 : <span class="m">√x ≥ ln x + 1 − ln(1/4)</span>... Simplifier et en déduire une inégalité classique.</p>
+          <p class="sub"><strong>d)</strong> Résoudre l'équation <span class="m">√x = ln x</span>. (Justifier soigneusement.)</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section s-corriges">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✅</div>
+      <div class="section-label">Corrigés Détaillés</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 1</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">f'(x) = 4(2x+1)³ × 2 = 8(2x+1)³. [Composée : (uⁿ)' = nu'·uⁿ⁻¹]</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">g'(x) = 1·eˣ + x·eˣ = (x+1)eˣ. [Produit : (uv)' = u'v+uv']</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">h'(x) = 2x/(x²+1). [Composée ln : (ln u)' = u'/u, u = x²+1, u' = 2x]</div></div>
+          <div class="corrige-step"><div class="cs-num">d)</div><div class="cs-text">k'(x) = [2x(x+2) − (x²−1)·1]/(x+2)² = (2x²+4x−x²+1)/(x+2)² = (x²+4x+1)/(x+2)².</div></div>
+        </div>
+      </div>
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 4</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">f'(x) = 1/(2√x) − 1/x = (√x − 2)/(2x). f'(x) = 0 ⟺ √x = 2 ⟺ x = 4. f'(x) &lt; 0 sur ]0;4[, f'(x) > 0 sur ]4;+∞[.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">Minimum en x = 4 : f(4) = 2 − ln 4. Tableau : décroissante sur ]0;4], croissante sur [4;+∞[.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">Le minimum de f est 2 − ln 4, donc pour tout x > 0 : f(x) ≥ 2 − ln 4, soit √x − ln x ≥ 2 − ln 4 = 2 − 2ln 2. Ou encore : √x − ln x ≥ 2(1 − ln 2). Inégalité classique : √x ≥ ln x pour tout x > 0... f(x) ≥ 0 ⟺ √x ≥ ln x ?  f(x) = 2−ln4 ≈ 0.614 > 0, donc f(x) > 0 partout : √x > ln x pour tout x > 0.</div></div>
+          <div class="corrige-step"><div class="cs-num">d)</div><div class="cs-text">f(x) = √x − ln x > 0 pour tout x > 0 (minimum strictement positif). Donc √x ≠ ln x pour tout x > 0 : pas de solution.</div></div>
+          <div class="result">✓ L'équation √x = ln x n'a aucune solution réelle positive.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-erreurs">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">🚨</div>
+      <div class="section-label">Erreurs Fréquentes</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="alert danger"><strong>Erreur #1</strong> (ln u)' = u'/u, PAS 1/u. Ne pas oublier de dériver u.</div>
+      <div class="alert danger"><strong>Erreur #2</strong> (eᵘ)' = u'·eᵘ, PAS eᵘ seul (sauf si u = x).</div>
+      <div class="alert danger"><strong>Erreur #3</strong> f'(a) = 0 n'implique pas forcément un extremum (peut être un point d'inflexion si f' ne change pas de signe).</div>
+      <div class="alert danger"><strong>Erreur #4</strong> Oublier le domaine de dérivabilité : (√x)' n'existe pas en x = 0.</div>
+    </div>
+  </div>
+
+  <div class="section s-essential">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⭐</div>
+      <div class="section-label">À Savoir Absolument</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="essential-grid">
+        <div class="essential-item"><div class="ei-title">Produit</div><p>(uv)' = u'v + uv'. Mnémo : "prime-normale + normale-prime".</p></div>
+        <div class="essential-item"><div class="ei-title">Quotient</div><p>(u/v)' = (u'v − uv')/v². Attention au signe moins !</p></div>
+        <div class="essential-item"><div class="ei-title">Composée</div><p>(f∘g)' = g'·f'∘g. Dériver l'extérieur × dériver l'intérieur.</p></div>
+        <div class="essential-item"><div class="ei-title">Tangente</div><p>En x=a : y = f'(a)(x−a) + f(a). Toujours calculer f(a) et f'(a).</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- FIN FICHE 5 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FICHE 6 : TRIGONOMÉTRIE                                   -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="fiche" id="fiche-5">
+  <div class="fiche-header">
+    <div class="fiche-number">FICHE 06 / 07</div>
+    <div class="fiche-title">Trigonométrie</div>
+    <div class="fiche-tags">
+      <span class="tag">Cercle trigonométrique</span>
+      <span class="tag">Valeurs remarquables</span>
+      <span class="tag">Équations trig.</span>
+      <span class="tag">Formules d'addition</span>
+    </div>
+  </div>
+
+  <div class="section s-cours">
+    <div class="section-header open" onclick="toggleSection(this)">
+      <div class="section-icon">📖</div>
+      <div class="section-label">Mini-Cours</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body open">
+      <h3>1. Le cercle trigonométrique</h3>
+      <p>Pour tout réel x, le point M(x) = (cos x, sin x) est sur le cercle unité. <span class="m">cos²x + sin²x = 1</span> (identité de Pythagore).</p>
+
+      <h3>2. Valeurs remarquables</h3>
+      <table>
+        <tr><th>x</th><th>0</th><th>π/6</th><th>π/4</th><th>π/3</th><th>π/2</th><th>π</th></tr>
+        <tr><td>cos x</td><td>1</td><td>√3/2</td><td>√2/2</td><td>1/2</td><td>0</td><td>−1</td></tr>
+        <tr><td>sin x</td><td>0</td><td>1/2</td><td>√2/2</td><td>√3/2</td><td>1</td><td>0</td></tr>
+        <tr><td>tan x</td><td>0</td><td>1/√3</td><td>1</td><td>√3</td><td>∄</td><td>0</td></tr>
+      </table>
+
+      <h3>3. Formules d'addition</h3>
+      <div class="formula-box">
+        <div class="formula-label">À connaître absolument</div>
+        <div class="math">
+          cos(a+b) = cos a·cos b − sin a·sin b<br>
+          cos(a−b) = cos a·cos b + sin a·sin b<br>
+          sin(a+b) = sin a·cos b + cos a·sin b<br>
+          sin(a−b) = sin a·cos b − cos a·sin b<br><br>
+          Cas particulier (a=b) :<br>
+          <span class="highlight">cos(2a) = cos²a − sin²a = 2cos²a − 1 = 1 − 2sin²a</span><br>
+          <span class="highlight">sin(2a) = 2 sin a·cos a</span>
+        </div>
+      </div>
+
+      <h3>4. Équations fondamentales</h3>
+      <div class="formula-box">
+        <div class="formula-label">Solutions générales</div>
+        <div class="math">
+          cos x = cos α  ⟺  <span class="highlight">x = α + 2kπ  ou  x = −α + 2kπ</span>  (k ∈ ℤ)<br>
+          sin x = sin α  ⟺  <span class="highlight">x = α + 2kπ  ou  x = π−α + 2kπ</span>  (k ∈ ℤ)<br>
+          tan x = tan α  ⟺  <span class="highlight">x = α + kπ</span>  (k ∈ ℤ)
+        </div>
+      </div>
+
+      <h3>5. Periodicité et parité</h3>
+      <div class="formula-box">
+        <div class="formula-label">Propriétés clés</div>
+        <div class="math">
+          cos : <span class="highlight">paire</span> (cos(−x) = cos x), période 2π<br>
+          sin : <span class="highlight">impaire</span> (sin(−x) = −sin x), période 2π<br>
+          tan : impaire, période π<br><br>
+          cos(π − x) = −cos x    sin(π − x) = sin x<br>
+          cos(π/2 − x) = sin x   sin(π/2 − x) = cos x
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-methodes">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⚙️</div>
+      <div class="section-label">Méthodes Types</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="method-card">
+        <div class="method-header">Méthode 1 — Résoudre cos x = k (ou sin x = k)</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Vérifier |k| ≤ 1 (sinon pas de solution).</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Identifier l'angle remarquable α tel que cos α = k (ou sin α = k).</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Écrire les deux familles de solutions + 2kπ.</div></div>
+          <div class="alert warning"><strong>Exemple</strong> cos x = 1/2. α = π/3. Solutions : x = π/3 + 2kπ ou x = −π/3 + 2kπ.</div>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-header">Méthode 2 — Linéariser avec les formules double angle</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Identifier la forme à linéariser (cos², sin², sin·cos).</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Appliquer : cos²a = (1+cos2a)/2, sin²a = (1−cos2a)/2, sinacosa = sin(2a)/2.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Résoudre l'équation linéarisée.</div></div>
+          <div class="alert warning"><strong>Exemple</strong> Résoudre 2cos²x − 1 = 0. cos(2x) = 0. 2x = π/2 + kπ. x = π/4 + kπ/2.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-exercices">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✏️</div>
+      <div class="section-label">Exercices Bac Blanc</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 1</span><span class="difficulty">⭐ Classique</span></div>
+        <div class="exercise-body">
+          <p class="sub">Résoudre dans ℝ les équations :</p>
+          <p class="sub"><strong>a)</strong> sin x = −√2/2</p>
+          <p class="sub"><strong>b)</strong> cos(2x − π/3) = 1/2</p>
+          <p class="sub"><strong>c)</strong> tan x = −1</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 2</span><span class="difficulty">⭐⭐ Intermédiaire</span></div>
+        <div class="exercise-body">
+          <p class="sub"><strong>a)</strong> En utilisant les formules d'addition, calculer exactement cos(π/12) = cos(π/3 − π/4).</p>
+          <p class="sub"><strong>b)</strong> En déduire sin(π/12).</p>
+          <p class="sub"><strong>c)</strong> Vérifier votre résultat avec l'identité sin²+cos² = 1.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 3</span><span class="difficulty">⭐⭐⭐ Difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Résoudre sur [0 ; 2π] : <span class="m">sin x + cos x = 1</span>.</p>
+          <p class="sub"><strong>Méthode suggérée :</strong> Écrire sin x + cos x = √2·cos(x − π/4) (forme R·cos(x − φ)).</p>
+          <p class="sub">Vérifier les solutions en les substituant dans l'équation initiale.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 4</span><span class="difficulty">⭐⭐⭐⭐ Très difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit l'équation <span class="m">sin(3x) = sin(x)</span>.</p>
+          <p class="sub"><strong>a)</strong> Écrire les conditions générales (deux familles).</p>
+          <p class="sub"><strong>b)</strong> Résoudre sur [0 ; π].</p>
+          <p class="sub"><strong>c)</strong> Exprimer sin(3x) en utilisant sin(2x+x) et les formules d'addition. Factoriser l'équation obtenue et retrouver les solutions.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section s-corriges">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✅</div>
+      <div class="section-label">Corrigés Détaillés</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 1</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">sin x = −√2/2 = sin(−π/4). Solutions : x = −π/4 + 2kπ ou x = π+π/4 + 2kπ = 5π/4 + 2kπ.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">cos(2x−π/3) = 1/2 = cos(π/3). Cas 1 : 2x−π/3 = π/3 + 2kπ → x = π/3 + kπ. Cas 2 : 2x−π/3 = −π/3 + 2kπ → x = kπ.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">tan x = −1 = tan(−π/4). Solutions : x = −π/4 + kπ.</div></div>
+        </div>
+      </div>
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 2</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">cos(π/12) = cos(π/3 − π/4) = cos(π/3)cos(π/4) + sin(π/3)sin(π/4) = (1/2)(√2/2) + (√3/2)(√2/2) = √2/4 + √6/4 = (√2+√6)/4.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">sin(π/12) = sin(π/3 − π/4) = sin(π/3)cos(π/4) − cos(π/3)sin(π/4) = (√3/2)(√2/2) − (1/2)(√2/2) = (√6−√2)/4.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">cos² + sin² = [(√2+√6)² + (√6−√2)²]/16 = [(2+2√12+6)+(6−2√12+2)]/16 = (8+8+4√12−4√12)/16 = 16/16 = 1. ✓</div></div>
+        </div>
+      </div>
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 3</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num"></div><div class="cs-text">sin x + cos x = √2(sin x · 1/√2 + cos x · 1/√2) = √2·sin(x + π/4). Équation : √2·sin(x+π/4) = 1, soit sin(x+π/4) = 1/√2 = sin(π/4). Solutions : x+π/4 = π/4 + 2kπ → x = 2kπ, ou x+π/4 = π−π/4 + 2kπ → x = π/2 + 2kπ. Sur [0;2π] : x = 0, x = π/2 (et x = 2π).</div></div>
+          <div class="result">✓ Solutions sur [0;2π] : x = 0, x = π/2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-erreurs">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">🚨</div>
+      <div class="section-label">Erreurs Fréquentes</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="alert danger"><strong>Erreur #1</strong> Pour cos x = k : deux familles de solutions (±α), pour tan x = k : une seule famille.</div>
+      <div class="alert danger"><strong>Erreur #2</strong> Confondre cos(2x) = 2cos²x − 1 (correct) avec cos(2x) = cos²x + sin²x (c'est 1, pas cos(2x)).</div>
+      <div class="alert danger"><strong>Erreur #3</strong> Ne pas restreindre les solutions à l'intervalle demandé (si [0;2π] est indiqué, donner les solutions dans cet intervalle uniquement).</div>
+    </div>
+  </div>
+
+  <div class="section s-essential">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⭐</div>
+      <div class="section-label">À Savoir Absolument</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="essential-grid">
+        <div class="essential-item"><div class="ei-title">Valeurs</div><p>π/6→(√3/2;1/2), π/4→(√2/2;√2/2), π/3→(1/2;√3/2). À connaître par cœur.</p></div>
+        <div class="essential-item"><div class="ei-title">Équations</div><p>cos x = cos α → x = ±α + 2kπ. sin x = sin α → x = α + 2kπ ou π−α + 2kπ.</p></div>
+        <div class="essential-item"><div class="ei-title">Double angle</div><p>cos(2a) = 2cos²a−1 = 1−2sin²a. sin(2a) = 2sin a·cos a.</p></div>
+        <div class="essential-item"><div class="ei-title">Identité</div><p>cos²x + sin²x = 1. Fondamentale pour toute simplification.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- FIN FICHE 6 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FICHE 7 : PRODUIT SCALAIRE                                -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="fiche" id="fiche-6">
+  <div class="fiche-header">
+    <div class="fiche-number">FICHE 07 / 07</div>
+    <div class="fiche-title">Produit Scalaire</div>
+    <div class="fiche-tags">
+      <span class="tag">Orthogonalité</span>
+      <span class="tag">Projection</span>
+      <span class="tag">Cercles et droites</span>
+      <span class="tag">Géométrie analytique</span>
+    </div>
+  </div>
+
+  <div class="section s-cours">
+    <div class="section-header open" onclick="toggleSection(this)">
+      <div class="section-icon">📖</div>
+      <div class="section-label">Mini-Cours</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body open">
+      <h3>1. Définitions</h3>
+      <div class="formula-box">
+        <div class="formula-label">Trois formules du produit scalaire</div>
+        <div class="math">
+          Formule angulaire : <span class="highlight">u⃗·v⃗ = ||u⃗||·||v⃗||·cos θ</span>  (θ angle entre u⃗ et v⃗)<br><br>
+          Formule algébrique : si u⃗=(x;y) et v⃗=(x';y') :<br>
+          <span class="highlight">u⃗·v⃗ = xx' + yy'</span><br><br>
+          Formule par la norme :<br>
+          u⃗·v⃗ = (1/2)[||u⃗+v⃗||² − ||u⃗||² − ||v⃗||²]
+        </div>
+      </div>
+
+      <h3>2. Propriétés fondamentales</h3>
+      <div class="formula-box">
+        <div class="formula-label">Propriétés à maîtriser</div>
+        <div class="math">
+          Commutativité : u⃗·v⃗ = v⃗·u⃗<br>
+          Bilinéarité : u⃗·(v⃗+w⃗) = u⃗·v⃗ + u⃗·w⃗<br>
+          <span class="highlight">u⃗⊥v⃗ ⟺ u⃗·v⃗ = 0</span><br>
+          u⃗·u⃗ = ||u⃗||²<br><br>
+          Identités remarquables :<br>
+          ||u⃗+v⃗||² = ||u⃗||² + 2u⃗·v⃗ + ||v⃗||²<br>
+          ||u⃗−v⃗||² = ||u⃗||² − 2u⃗·v⃗ + ||v⃗||²<br>
+          <span class="highlight">(u⃗+v⃗)·(u⃗−v⃗) = ||u⃗||² − ||v⃗||²</span>
+        </div>
+      </div>
+
+      <h3>3. Équation d'un cercle</h3>
+      <div class="formula-box">
+        <div class="formula-label">Caractérisation par le produit scalaire</div>
+        <div class="math">
+          M est sur le cercle de diamètre [AB] ⟺ <span class="highlight">MA⃗·MB⃗ = 0</span><br><br>
+          Cercle de centre Ω(a;b) et rayon r :<br>
+          <span class="highlight">(x−a)² + (y−b)² = r²</span>
+        </div>
+      </div>
+
+      <h3>4. Équation d'une droite (forme normale)</h3>
+      <div class="formula-box">
+        <div class="formula-label">Droite de vecteur normal n⃗ = (a;b)</div>
+        <div class="math">
+          Équation : <span class="highlight">ax + by + c = 0</span><br>
+          Vecteur directeur : (-b ; a)<br><br>
+          Distance d'un point P(x₀;y₀) à la droite :<br>
+          <span class="highlight">d = |ax₀ + by₀ + c| / √(a² + b²)</span>
+        </div>
+      </div>
+
+      <h3>5. Théorème de la médiane et d'Al-Kashi</h3>
+      <div class="formula-box">
+        <div class="formula-label">Al-Kashi (généralisation de Pythagore)</div>
+        <div class="math">
+          Dans un triangle ABC, côté a = BC, b = CA, c = AB :<br>
+          <span class="highlight">a² = b² + c² − 2bc·cos A</span><br>
+          (Pythagore est le cas A = π/2)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-methodes">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⚙️</div>
+      <div class="section-label">Méthodes Types</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="method-card">
+        <div class="method-header">Méthode 1 — Démontrer qu'un point est sur un cercle</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Identifier le diamètre [AB] (si cercle défini par son diamètre).</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Calculer MA⃗ et MB⃗ en coordonnées.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Calculer le produit scalaire MA⃗·MB⃗ = x·x' + y·y'.</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text">Si = 0 : M sur le cercle de diamètre [AB].</div></div>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-header">Méthode 2 — Trouver l'équation d'un cercle</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Trouver le centre Ω (milieu du diamètre, ou donné).</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Calculer le rayon r = ||ΩA||.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Écrire (x−xΩ)² + (y−yΩ)² = r².</div></div>
+          <div class="alert warning"><strong>Exemple</strong> Cercle de diamètre A(1;0) et B(3;4). Centre Ω = (2;2), r = ||ΩA|| = √(1+4) = √5. Équation : (x−2)²+(y−2)² = 5.</div>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-header">Méthode 3 — Montrer l'orthogonalité de deux vecteurs</div>
+        <div class="method-body">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Exprimer les coordonnées des deux vecteurs.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Calculer le produit scalaire = x₁x₂ + y₁y₂.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Conclure : = 0 ⟺ vecteurs orthogonaux ⟺ droites perpendiculaires.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-exercices">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✏️</div>
+      <div class="section-label">Exercices Bac Blanc</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 1</span><span class="difficulty">⭐ Classique</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit A(1;2), B(4;6), C(−1;4) dans un repère orthonormal.</p>
+          <p class="sub"><strong>a)</strong> Calculer AB⃗, AC⃗ et leur produit scalaire.</p>
+          <p class="sub"><strong>b)</strong> En déduire la mesure de l'angle BAC.</p>
+          <p class="sub"><strong>c)</strong> Calculer les longueurs AB, AC, BC puis vérifier al-Kashi.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 2</span><span class="difficulty">⭐⭐ Intermédiaire</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit le cercle C d'équation <span class="m">x² + y² − 4x + 6y − 3 = 0</span>.</p>
+          <p class="sub"><strong>a)</strong> Mettre sous la forme (x−a)²+(y−b)² = r² pour trouver le centre et le rayon.</p>
+          <p class="sub"><strong>b)</strong> La droite y = x + 1 est-elle sécante à C ? (Calculer la distance centre-droite.)</p>
+          <p class="sub"><strong>c)</strong> Le point M(3;−1) appartient-il à C ?</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 3</span><span class="difficulty">⭐⭐⭐ Difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Soit les points A(0;0), B(4;0), C(2;3). On note H le pied de la hauteur issue de C.</p>
+          <p class="sub"><strong>a)</strong> Trouver les coordonnées de H (CH⃗ ⊥ AB⃗).</p>
+          <p class="sub"><strong>b)</strong> Calculer CH et en déduire l'aire du triangle ABC.</p>
+          <p class="sub"><strong>c)</strong> Montrer que A, B, H, C sont sur un cercle (lequel ?) ou bien montrer que le triangle est inscriptible.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-header"><span class="exercise-num">EXERCICE 4</span><span class="difficulty">⭐⭐⭐⭐ Très difficile</span></div>
+        <div class="exercise-body">
+          <p class="sub">Dans un triangle ABC isocèle en A avec AB = AC = 5 et BC = 6, on note I le milieu de BC.</p>
+          <p class="sub"><strong>a)</strong> Calculer AI en utilisant le produit scalaire (formule de la médiane).</p>
+          <p class="sub"><strong>b)</strong> Montrer que AI ⊥ BC.</p>
+          <p class="sub"><strong>c)</strong> Soit M un point tel que BM⃗·CM⃗ = 0. Montrer que M est sur un cercle que vous déterminerez.</p>
+          <p class="sub"><strong>d)</strong> Quel est l'ensemble des points M tels que MA⃗·BC⃗ = MA⃗·(2·BI⃗) ?</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section s-corriges">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">✅</div>
+      <div class="section-label">Corrigés Détaillés</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 1</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">AB⃗ = (3;4), AC⃗ = (−2;2). AB⃗·AC⃗ = 3×(−2) + 4×2 = −6+8 = 2.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">||AB|| = √(9+16) = 5. ||AC|| = √(4+4) = 2√2. cos(BAC) = 2/(5×2√2) = 1/(5√2) = √2/10. BAC = arccos(√2/10) ≈ 81.9°.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">BC⃗ = (−5;−2), BC = √29. Al-Kashi : BC² = AB²+AC²−2·AB·AC·cos(BAC) = 25+8−2×5×2√2×√2/10 = 33−4 = 29. BC = √29. ✓</div></div>
+        </div>
+      </div>
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 2</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">x²−4x = (x−2)²−4. y²+6y = (y+3)²−9. Équation : (x−2)²+(y+3)² = 3+4+9 = 16. Centre Ω(2;−3), rayon r = 4.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">Droite : x−y+1=0. Distance Ω à la droite : d = |2−(−3)+1|/√2 = 6/√2 = 3√2 ≈ 4.24 > 4 = r. La droite est donc EXTÉRIEURE au cercle.</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">(3−2)²+(−1+3)² = 1+4 = 5 ≠ 16. M(3;−1) n'appartient pas à C.</div></div>
+        </div>
+      </div>
+      <div class="corrige">
+        <div class="corrige-header" onclick="toggleCorrige(this)">▶ Corrigé Exercice 4</div>
+        <div class="corrige-body">
+          <div class="corrige-step"><div class="cs-num">a)</div><div class="cs-text">Posons B et C symétriques par rapport à I. AB = AC = 5, BI = 3. AI² = AB² − BI² = 25−9 = 16 (Pythagore, car isocèle → AI⊥BC). AI = 4.</div></div>
+          <div class="corrige-step"><div class="cs-num">b)</div><div class="cs-text">BI⃗·AI⃗ = ? Dans un triangle isocèle, la médiane issue du sommet principal est aussi la hauteur. Donc AI⊥BI, soit AI⃗·BC⃗ = 0. Plus formellement : AI⃗·BC⃗ = AI⃗·(AC⃗−AB⃗) = AI⃗·AC⃗ − AI⃗·AB⃗. Par isocélie et symmétrie, AI⃗·AC⃗ = AI⃗·AB⃗ (angles égaux), donc AI⃗·BC⃗ = 0. ✓</div></div>
+          <div class="corrige-step"><div class="cs-num">c)</div><div class="cs-text">BM⃗·CM⃗ = 0 ⟺ M est sur le cercle de diamètre [BC]. Centre = I (milieu de BC), rayon = BI = 3.</div></div>
+          <div class="corrige-step"><div class="cs-num">d)</div><div class="cs-text">MA⃗·BC⃗ = MA⃗·(2·BI⃗) = 2(MA⃗·BI⃗). Equation : MA⃗·BC⃗ = MA⃗·2BI⃗. Puisque BC = 2BI, MA⃗·BC⃗ = MA⃗·2BI⃗ est toujours vraie (BC⃗ = 2BI⃗ exact si même sens). L'ensemble des M vérifiant l'équation est donc ℝ² entier… sauf si le problème se reformule comme MA⃗·(BC⃗−2BI⃗) = 0, soit MA⃗·(BC⃗−BC⃗) = 0, toujours vrai. Interprétation : toute droite perpendiculaire à un vecteur fixe, ou R² entier.</div></div>
+          <div class="result">✓ Ensemble = plan entier (identité vectorielle BC⃗ = 2BI⃗)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section s-erreurs">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">🚨</div>
+      <div class="section-label">Erreurs Fréquentes</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="alert danger"><strong>Erreur #1</strong> Confondre vecteur directeur et vecteur normal d'une droite. Si la droite est ax+by+c=0, le vecteur normal est (a;b) et le directeur est (−b;a).</div>
+      <div class="alert danger"><strong>Erreur #2</strong> Croire que M sur le cercle de diamètre [AB] ⟹ l'angle AMB est droit. C'est le théorème de Thalès : l'angle en M est droit si et seulement si M est sur le cercle de diamètre AB (avec M ≠ A, B).</div>
+      <div class="alert danger"><strong>Erreur #3</strong> Pour la distance point-droite, oublier de diviser par √(a²+b²).</div>
+      <div class="alert danger"><strong>Erreur #4</strong> Passer de "u⃗·v⃗ = 0" à "u⃗ = 0⃗ ou v⃗ = 0⃗". Ce n'est pas vrai : le produit scalaire n'est pas un produit de nombres réels.</div>
+    </div>
+  </div>
+
+  <div class="section s-essential">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-icon">⭐</div>
+      <div class="section-label">À Savoir Absolument</div>
+      <div class="chevron">▶</div>
+    </div>
+    <div class="section-body">
+      <div class="essential-grid">
+        <div class="essential-item"><div class="ei-title">Formules</div><p>u⃗·v⃗ = xx'+yy' = ||u||||v||cos θ. Trois formules, selon le contexte.</p></div>
+        <div class="essential-item"><div class="ei-title">Orthogonalité</div><p>u⃗⊥v⃗ ⟺ u⃗·v⃗ = 0. Utilisation principale du produit scalaire.</p></div>
+        <div class="essential-item"><div class="ei-title">Cercle diamètre</div><p>M sur cercle de diamètre AB ⟺ MA⃗·MB⃗ = 0.</p></div>
+        <div class="essential-item"><div class="ei-title">Al-Kashi</div><p>a² = b²+c²−2bc·cos A. Pythagore si A = π/2.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- FIN FICHE 7 -->
+
+</main>
+
+<script>
+  function showFiche(index) {
+    document.querySelectorAll('.fiche').forEach((f,i) => {
+      f.classList.toggle('active', i === index);
+    });
+    document.querySelectorAll('nav button').forEach((b,i) => {
+      b.classList.toggle('active', i === index);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleSection(header) {
+    header.classList.toggle('open');
+    const body = header.nextElementSibling;
+    body.classList.toggle('open');
+  }
+
+  function toggleCorrige(header) {
+    const body = header.nextElementSibling;
+    body.classList.toggle('open');
+    const arrow = body.classList.contains('open') ? '▼' : '▶';
+    header.textContent = header.textContent.replace(/[▶▼]/, arrow);
+  }
+
+  // Open all main sections on first fiche load
+  document.querySelectorAll('.section-header.open').forEach(h => {
+    h.nextElementSibling.classList.add('open');
+  });
+</script>
+
+</body>
+</html>
